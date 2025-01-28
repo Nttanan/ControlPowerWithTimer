@@ -14,7 +14,7 @@ void setup() {
   // ตั้งค่าพินของรีเลย์เป็น output
   pinMode(relayPin, OUTPUT);
   // เริ่มต้นปิดรีเลย์
-  digitalWrite(relayPin, LOW);
+  digitalWrite(relayPin, HIGH);
 }
 
 void loop() {
@@ -29,7 +29,7 @@ void loop() {
   } else if (!relayState && (currentMillis - previousMillis >= offDuration)) {
     // ถ้ารีเลย์ปิดและถึงเวลาให้เปิด
     relayState = true; // เปิดรีเลย์
-    digitalWrite(relayPin, HIGH);
+    digitalWrite(relayPin, LOW);
     previousMillis = currentMillis; // อัปเดตเวลาเริ่มต้น
   }
 }
