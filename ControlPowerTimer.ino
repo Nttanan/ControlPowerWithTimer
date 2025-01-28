@@ -13,7 +13,7 @@ bool relayState = false;
 void setup() {
   // ตั้งค่าพินของรีเลย์เป็น output
   pinMode(relayPin, OUTPUT);
-  // เริ่มต้นปิดรีเลย์
+  // เริ่มต้นปิดรีเลย์ Active Low
   digitalWrite(relayPin, HIGH);
 }
 
