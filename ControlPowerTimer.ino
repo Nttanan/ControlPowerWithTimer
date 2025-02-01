@@ -8,28 +8,31 @@ const unsigned long offDuration = 1800000; // 30 นาที
 // ตัวแปรสำหรับเก็บเวลาเริ่มต้น
 unsigned long previousMillis = 0;
 // สถานะของรีเลย์
-bool relayState = false;
+bool relayState = true; // เริ่มต้นให้รีเลย์เปิด
 
 void setup() {
-  // ตั้งค่าพินของรีเลย์เป็น output
   pinMode(relayPin, OUTPUT);
-  // เริ่มต้นปิดรีเลย์ Active Low
-  digitalWrite(relayPin, HIGH);
+  
+  // เริ่มต้นเปิดรีเลย์ (Active Low)
+  digitalWrite(relayPin, LOW);
+  
+  // บันทึกเวลาที่เริ่มต้นทำงาน
+  previousMillis = millis();
 }
 
 void loop() {
-  // อ่านเวลาปัจจุบัน
   unsigned long currentMillis = millis();
 
   if (relayState && (currentMillis - previousMillis >= onDuration)) {
     // ถ้ารีเลย์เปิดและถึงเวลาให้ปิด
-    relayState = false; // ปิดรีเลย์
-    digitalWrite(relayPin, LOW);
-    previousMillis = currentMillis; // อัปเดตเวลาเริ่มต้น
-  } else if (!relayState && (currentMillis - previousMillis >= offDuration)) {
+    relayState = false;
+    digitalWrite(relayPin, HIGH);
+    previousMillis = currentMillis;
+  } 
+  else if (!relayState && (currentMillis - previousMillis >= offDuration)) {
     // ถ้ารีเลย์ปิดและถึงเวลาให้เปิด
-    relayState = true; // เปิดรีเลย์
+    relayState = true;
     digitalWrite(relayPin, LOW);
-    previousMillis = currentMillis; // อัปเดตเวลาเริ่มต้น
+    previousMillis = currentMillis;
   }
 }
